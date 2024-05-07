@@ -11,9 +11,9 @@ const (
 )
 
 type Response struct {
-	StatusCode StatusCode
-	Msg        string
-	ErrorMsg   string
+	StatusCode StatusCode `json:"status_code,omitempty"`
+	Msg        string     `json:"msg,omitempty"`
+	ErrorMsg   string     `json:"error,omitempty"`
 }
 
 func GetResponse(statusCode StatusCode, msgs string, errMsgs string) *Response {

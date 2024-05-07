@@ -13,6 +13,6 @@ type PaginationReq struct {
 }
 
 type EmployeesResponse struct {
-	Status    *Response
-	Employees []*Employee
+	Status    *Response   `json:"status,omitempty"`
+	Employees []*Employee `json:"employees,omitempty"`
 }
