@@ -1,0 +1,14 @@
+{
+    "port": 8002,
+    "secret": "sample-secret",
+    "database" : {
+        "host": "localhost",
+        "port": "5432",
+        "dbname": "postgres",
+        "username": "username",
+        "password": "password",
+        "type": "postgres",
+        "max_open_conn": "1000",
+        "max_idle_conn": "10"
+    }
+}
