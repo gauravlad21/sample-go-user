@@ -1,6 +1,15 @@
 # sample-go-user
 go-skeleton code for simple CRUD APIs.
 
+run steps:
+```
+go mod tidy
+go mod vendor
+go build -o main .
+./main  --config=./config.json
+```
+==========================================
+
 insert employee
 ```
 curl --location 'http://localhost:8002/employee?id=1' \
