@@ -12,8 +12,8 @@ WHERE id=$1;
 
 -- name: UpdateEmployee :exec
 UPDATE employee
-SET employee_name=$1, position=$2, salary=$3
-WHERE id=$4;
+SET employee_name=$1, position=$2, salary=$3, version=version+1
+WHERE id=$4 and version=version;
 
 -- name: GetEmployeeById :many
 SELECT * FROM employee

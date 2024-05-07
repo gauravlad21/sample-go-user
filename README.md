@@ -53,3 +53,27 @@ generate mock for unit test:
 ```
 mockgen -destination=unit_test/mocks/mock_dbops.go -package=mocks -source=dbhelper/dpOperations.go DbOperationsIF
 ```
+
+
+usage of pessimistic locking [db trasaction] from service.go file
+```
+		tx, err := dbhelper.StartTransaction(ctx, dbhelper.GetDb())
+		if err != nil {
+			// error creating transaction
+		}
+
+		dbhelper.EndTransaction(ctx, tx, func(tx *sqlx.Tx) (txErr error) {
+			err := s.DbOps.UpdateEmployee(ctx, req)
+			if err != nil {
+				return fmt.Errorf("UpdateEmployee::failed with error", err)
+			}
+			return nil
+		}(tx))
+```
+
+usage optimistic locking  from query.go file
+```
+UPDATE employee
+SET employee_name=$1, position=$2, salary=$3, version=version+1
+WHERE id=$4 and version=version;
+```

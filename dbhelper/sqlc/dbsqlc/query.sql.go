@@ -20,7 +20,7 @@ func (q *Queries) DeleteEmployee(ctx context.Context, id int32) error {
 }
 
 const getEmployeeById = `-- name: GetEmployeeById :many
-SELECT id, employee_name, position, salary, created, updated FROM employee
+SELECT id, employee_name, position, salary, version, created, updated FROM employee
 WHERE id=$1
 `
 
@@ -38,6 +38,7 @@ func (q *Queries) GetEmployeeById(ctx context.Context, id int32) ([]Employee, er
 			&i.EmployeeName,
 			&i.Position,
 			&i.Salary,
+			&i.Version,
 			&i.Created,
 			&i.Updated,
 		); err != nil {
@@ -55,7 +56,7 @@ func (q *Queries) GetEmployeeById(ctx context.Context, id int32) ([]Employee, er
 }
 
 const getEmployeeByPagination = `-- name: GetEmployeeByPagination :many
-SELECT id, employee_name, position, salary, created, updated FROM employee
+SELECT id, employee_name, position, salary, version, created, updated FROM employee
 limit $1 offset $2
 `
 
@@ -78,6 +79,7 @@ func (q *Queries) GetEmployeeByPagination(ctx context.Context, arg GetEmployeeBy
 			&i.EmployeeName,
 			&i.Position,
 			&i.Salary,
+			&i.Version,
 			&i.Created,
 			&i.Updated,
 		); err != nil {
@@ -118,8 +120,8 @@ func (q *Queries) InsertEmployee(ctx context.Context, arg InsertEmployeeParams) 
 
 const updateEmployee = `-- name: UpdateEmployee :exec
 UPDATE employee
-SET employee_name=$1, position=$2, salary=$3
-WHERE id=$4
+SET employee_name=$1, position=$2, salary=$3, version=version+1
+WHERE id=$4 and version=version
 `
 
 type UpdateEmployeeParams struct {

@@ -31,6 +31,23 @@ func (s *ServiceStruct) UpdateEmployee(ctx context.Context, req *common.Employee
 		return common.GetErrMsgsResponse(common.StatusCode_BAD_REQUEST, "input is nil")
 	}
 
+	/*
+		// code with trasaction:
+
+		tx, err := dbhelper.StartTransaction(ctx, dbhelper.GetDb())
+		if err != nil {
+			// error creating transaction
+		}
+
+		dbhelper.EndTransaction(ctx, tx, func(tx *sqlx.Tx) (txErr error) {
+			err := s.DbOps.UpdateEmployee(ctx, req)
+			if err != nil {
+				return fmt.Errorf("UpdateEmployee::failed with error", err)
+			}
+			return nil
+		}(tx))
+	*/
+
 	err := s.DbOps.UpdateEmployee(ctx, req)
 	if err != nil {
 		return common.GetErrResponse(common.StatusCode_INTERNAL_ERROR, err)

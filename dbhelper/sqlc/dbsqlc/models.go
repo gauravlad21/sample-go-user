@@ -13,6 +13,7 @@ type Employee struct {
 	EmployeeName string
 	Position     string
 	Salary       float64
+	Version      sql.NullInt32
 	Created      sql.NullTime
 	Updated      sql.NullTime
 }
