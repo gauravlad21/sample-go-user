@@ -47,3 +47,9 @@ get employee with pagination
 ```
 curl --location 'http://localhost:8002/employees?limit=2&offset=2'
 ```
+
+
+generate mock for unit test:
+```
+mockgen -destination=unit_test/mocks/mock_dbops.go -package=mocks -source=dbhelper/dpOperations.go DbOperationsIF
+```

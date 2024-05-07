@@ -9,7 +9,7 @@ import (
 
 type ServiceIF interface {
 	Hello(ctx context.Context) string
-	AddEmployee(ctx context.Context, product *common.Employee) *common.Response
+	AddEmployee(ctx context.Context, req *common.Employee) *common.Response
 	UpdateEmployee(ctx context.Context, req *common.Employee) *common.Response
 	DeleteEmployee(ctx context.Context, id int32) *common.Response
 	GetEmployeeById(ctx context.Context, id int32) *common.EmployeesResponse

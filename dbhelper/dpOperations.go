@@ -17,8 +17,8 @@ type DbOperationsIF interface {
 	InsertEmployee(ctx context.Context, req *common.Employee, tx ...*sql.Tx) (id int32, err error)
 	DeleteEmployee(ctx context.Context, id int32, tx ...*sql.Tx) (err error)
 	UpdateEmployee(ctx context.Context, req *common.Employee, tx ...*sql.Tx) (err error)
-	GetEmployeeById(ctx context.Context, id int32, tx ...*sql.Tx) (product *common.Employee, err error)
-	GetEmployeeByPagination(ctx context.Context, offset int32, limit int32, tx ...*sql.Tx) (product []*common.Employee, err error)
+	GetEmployeeById(ctx context.Context, id int32, tx ...*sql.Tx) (emp *common.Employee, err error)
+	GetEmployeeByPagination(ctx context.Context, offset int32, limit int32, tx ...*sql.Tx) (emp []*common.Employee, err error)
 }
 
 type DbOps struct {

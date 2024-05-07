@@ -55,14 +55,9 @@ func (s *ServiceStruct) GetEmployeeById(ctx context.Context, id int32) *common.E
 }
 
 func (s *ServiceStruct) GetEmployeeByPagination(ctx context.Context, req *common.PaginationReq) *common.EmployeesResponse {
-
-	if req.Limit > common.MAX_ALLOW_LIMIT {
-		return nil
-	}
-
 	employees, err := s.DbOps.GetEmployeeByPagination(ctx, req.Offset, req.Limit)
 	if err != nil {
-		return nil
+		return &common.EmployeesResponse{Status: common.GetErrResponse(common.StatusCode_INTERNAL_ERROR, err)}
 	}
 	return &common.EmployeesResponse{Status: common.GetDefaultResponse(), Employees: employees}
 }
