@@ -35,6 +35,6 @@ func init() {
 		{Url: "/employee", Method: PUT, Handler: []gin.HandlerFunc{controller.UpdateEmployee}},
 		{Url: "/employee", Method: DELETE, Handler: []gin.HandlerFunc{controller.DeleteEmployee}},
 		{Url: "/employee", Method: GET, Handler: []gin.HandlerFunc{controller.GetEmployeeById}},
-		{Url: "/employees", Method: GET, Handler: []gin.HandlerFunc{controller.GetEmployeeById}},
+		{Url: "/employees", Method: GET, Handler: []gin.HandlerFunc{controller.GetEmployeeByPagiantion}},
 	}
 }
