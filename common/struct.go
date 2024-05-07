@@ -13,6 +13,6 @@ type PaginationReq struct {
 }
 
 type EmployeesResponse struct {
-	CommonResponse *Response
-	Employees      []*Employee
+	Status    *Response
+	Employees []*Employee
 }

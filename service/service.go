@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gauravlad21/sample-go-employee/common"
 )
@@ -17,11 +18,11 @@ func (s *ServiceStruct) AddEmployee(ctx context.Context, req *common.Employee) *
 		return common.GetErrMsgsResponse(common.StatusCode_BAD_REQUEST, "body is nil or input invalid")
 	}
 
-	_, err := s.DbOps.InsertEmployee(ctx, req)
+	id, err := s.DbOps.InsertEmployee(ctx, req)
 	if err != nil {
 		return &common.Response{StatusCode: common.StatusCode_INTERNAL_ERROR, ErrorMsg: err.Error()}
 	}
-	return common.GetDefaultResponse()
+	return common.GetResponse(common.StatusCode_OK, fmt.Sprintf("employee created with ID: %v", id), "")
 }
 
 func (s *ServiceStruct) UpdateEmployee(ctx context.Context, req *common.Employee) *common.Response {
@@ -48,9 +49,9 @@ func (s *ServiceStruct) DeleteEmployee(ctx context.Context, id int32) *common.Re
 func (s *ServiceStruct) GetEmployeeById(ctx context.Context, id int32) *common.EmployeesResponse {
 	employee, err := s.DbOps.GetEmployeeById(ctx, id)
 	if err != nil || employee == nil {
-		return &common.EmployeesResponse{CommonResponse: common.GetErrResponse(common.StatusCode_INTERNAL_ERROR, err)}
+		return &common.EmployeesResponse{Status: common.GetErrResponse(common.StatusCode_INTERNAL_ERROR, err)}
 	}
-	return &common.EmployeesResponse{CommonResponse: common.GetDefaultResponse(), Employees: []*common.Employee{employee}}
+	return &common.EmployeesResponse{Status: common.GetDefaultResponse(), Employees: []*common.Employee{employee}}
 }
 
 func (s *ServiceStruct) GetEmployeeByPagination(ctx context.Context, req *common.PaginationReq) *common.EmployeesResponse {
@@ -63,5 +64,5 @@ func (s *ServiceStruct) GetEmployeeByPagination(ctx context.Context, req *common
 	if err != nil {
 		return nil
 	}
-	return &common.EmployeesResponse{CommonResponse: common.GetDefaultResponse(), Employees: employees}
+	return &common.EmployeesResponse{Status: common.GetDefaultResponse(), Employees: employees}
 }
